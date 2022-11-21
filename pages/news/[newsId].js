@@ -2,7 +2,7 @@
 
 function DetailPage() {
   return (
-    <h1>Somethingnpm page!</h1>
+    <h1>The detail page!</h1>
   );
 }
 
