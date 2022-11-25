@@ -22,7 +22,7 @@ const DUMMY_MEETUPS = [
 ];
 
 function HomePage(props) {
-  return <MeetupList meetups={loadedMeetups} />;
+  return <MeetupList meetups={props.meetups} />;
 }
 
 // this only works in pages files
@@ -35,11 +35,14 @@ export async function getStaticProps() {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    revalidate: 3600
+    // this fetches data every 10 seconds to update the page
   };
 }
 
 // if nextjs finds this function, nextjs creates a pre render of the page
 // this is safe code, this does not go in the frontend
 // this will never reach the client
+// the main issue is that the page can be outdated
 
 export default HomePage;
