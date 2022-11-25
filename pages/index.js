@@ -1,6 +1,5 @@
 // our-domain.com/
 
-import { useEffect, useState } from "react";
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -22,15 +21,25 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-function HomePage() {
-  const [loadedMeetups, setLoadedMeetups] = useState([]);
-  
-  useEffect(() => {
-    // send an http request and fetch data
-    setLoadedMeetups(DUMMY_MEETUPS);
-  });
-
+function HomePage(props) {
   return <MeetupList meetups={loadedMeetups} />;
 }
+
+// this only works in pages files
+// this is one of the main features of nextjs
+
+export async function getStaticProps() {
+  // fetch data from an API
+  // always return an object
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+  };
+}
+
+// if nextjs finds this function, nextjs creates a pre render of the page
+// this is safe code, this does not go in the frontend
+// this will never reach the client
 
 export default HomePage;
