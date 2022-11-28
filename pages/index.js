@@ -28,17 +28,34 @@ function HomePage(props) {
 // this only works in pages files
 // this is one of the main features of nextjs
 
-export async function getStaticProps() {
-  // fetch data from an API
-  // always return an object
+// export async function getStaticProps() {
+//   // fetch data from an API
+//   // always return an object
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//     revalidate: 3600
+//     // this fetches data every 10 seconds to update the page
+//   };
+// }
+
+// alternatively to update the view on every request
+
+export async function getServerSideprops(context) {
+  const req = context.req;
+  const res = context.req;
+
   return {
     props: {
       meetups: DUMMY_MEETUPS,
     },
-    revalidate: 3600
-    // this fetches data every 10 seconds to update the page
   };
 }
+
+// this would be useful if you have data that does not change usually
+// use only getServerSideProps if you need access to a larger context object
+// or if data is changing very fast
 
 // if nextjs finds this function, nextjs creates a pre render of the page
 // this is safe code, this does not go in the frontend
